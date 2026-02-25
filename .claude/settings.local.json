@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:strefatech.substack.com)",
+      "WebFetch(domain:on.substack.com)"
+    ]
+  }
+}

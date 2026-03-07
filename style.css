@@ -147,7 +147,7 @@ section {
    ============================================================ */
 
 #hero {
-  background: var(--color-primary);
+  background: #254c5d;
   color: var(--color-white);
   padding: 4rem 1.5rem;
 }

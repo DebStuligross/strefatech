@@ -353,32 +353,6 @@ section {
   margin-bottom: 0.5rem;
 }
 
-.stats-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2rem;
-  margin-top: 2.5rem;
-  padding-top: 2rem;
-  border-top: 1px solid #e5e0d8;
-}
-
-.stat {
-  text-align: center;
-}
-
-.stat .number {
-  font-family: var(--font-heading);
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--color-highlight);
-  display: block;
-}
-
-.stat .label {
-  color: var(--color-muted);
-  font-size: 0.9rem;
-}
 
 /* ============================================================
    Section: Recent Issues (Cards with Cover Images)

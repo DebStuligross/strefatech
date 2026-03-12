@@ -123,6 +123,16 @@ section {
   color: var(--color-dark);
 }
 
+.btn-secondary {
+  background: transparent;
+  color: var(--color-highlight);
+  border: 2px solid var(--color-highlight);
+}
+.btn-secondary:hover {
+  background: var(--color-highlight);
+  color: var(--color-dark);
+}
+
 .btn-outline {
   background: transparent;
   color: var(--color-white);

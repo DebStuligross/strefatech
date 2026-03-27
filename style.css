@@ -450,6 +450,15 @@ section {
 
 .card-link:hover { color: var(--color-highlight-light); text-decoration: underline; }
 
+.card-link-secondary {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-muted);
+  margin-top: 0.35rem;
+  display: block;
+}
+.card-link-secondary:hover { color: var(--color-highlight); }
+
 /* ============================================================
    Section: Subscribe
    ============================================================ */

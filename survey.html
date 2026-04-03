@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="StrefaTECH Reader Survey — Where are you on the AI Hype Cycle?">
+  <title>StrefaTECH Reader Survey — Issue #150</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <style>
+    /* ── Brand tokens (mirror style.css) ── */
+    :root {
+      --primary:   #3A5068;
+      --dark:      #2C3E50;
+      --gold:      #C9A04A;
+      --gold-lt:   #E8C97A;
+      --bg:        #FAF8F4;
+      --alt-bg:    #F0EDE8;
+      --text:      #2D2D2D;
+      --muted:     #6B7280;
+      --white:     #FFFFFF;
+      --radius:    8px;
+      --font-h:    'Raleway', 'Trebuchet MS', sans-serif;
+      --font-b:    'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-b);
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.7;
+      font-size: 1rem;
+      min-height: 100vh;
+    }
+
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: var(--gold); }
+
+    /* ── Header ── */
+    .site-header {
+      background: #254c5d;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .site-header img { height: 48px; width: auto; }
+    .site-header .wordmark {
+      font-family: var(--font-h);
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    /* ── Progress bar ── */
+    .progress-wrap {
+      background: var(--alt-bg);
+      padding: 0.65rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .progress-track {
+      flex: 1;
+      height: 6px;
+      background: #ddd;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--gold);
+      border-radius: 3px;
+      transition: width 0.4s ease;
+    }
+    .progress-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      white-space: nowrap;
+      font-family: var(--font-h);
+      font-weight: 600;
+    }
+
+    /* ── Context bar (screens 2–5) ── */
+    .context-bar {
+      display: none;
+      background: var(--primary);
+      padding: 0.5rem 1.5rem;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .context-bar.visible { display: flex; }
+    .context-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.9);
+      padding: 0.2rem 0.7rem;
+      border-radius: 100px;
+      font-family: var(--font-h);
+      font-weight: 600;
+      font-size: 0.78rem;
+      white-space: nowrap;
+    }
+    .context-pill.position-pill {
+      background: rgba(201,160,74,0.28);
+      color: var(--gold-lt);
+      border: 1px solid rgba(201,160,74,0.4);
+    }
+    .context-divider {
+      color: rgba(255,255,255,0.3);
+      font-size: 0.75rem;
+    }
+
+    /* ── Main container ── */
+    .survey-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    /* ── Screen transitions ── */
+    .screen {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    .screen.active { display: block; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Screen header ── */
+    .screen-eyebrow {
+      font-family: var(--font-h);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 0.6rem;
+    }
+    .screen h1 {
+      font-family: var(--font-h);
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1.25;
+      margin-bottom: 0.75rem;
+    }
+    .screen-intro {
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin-bottom: 2rem;
+    }
+
+    /* ── Hype cycle image — full size ── */
+    .hype-img-wrap {
+      background: var(--white);
+      border: 1px solid #e5e0d8;
+      border-radius: var(--radius);
+      padding: 1rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .hype-img-wrap img {
+      max-height: 340px;
+      margin: 0 auto;
+      border-radius: 4px;
+    }
+
+    /* ── Hype cycle image — compact (screens 3–5) ── */
+    .hype-img-compact {
+      background: var(--white);
+      border: 1px solid #e5e0d8;
+      border-radius: var(--radius);
+      padding: 0.75rem 1rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .hype-img-compact img {
+      max-height: 120px;
+      flex-shrink: 0;
+      border-radius: 4px;
+    }
+    .hype-compact-right {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .hype-compact-label {
+      font-family: var(--font-h);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .selected-position-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(201,160,74,0.1);
+      border: 2px solid var(--gold);
+      border-radius: var(--radius);
+      padding: 0.35rem 0.85rem;
+      font-family: var(--font-h);
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--primary);
+    }
+    .selected-position-badge .badge-num {
+      color: var(--gold);
+      font-size: 1rem;
+    }
+
+    /* ── Radio / selection cards ── */
+    .option-grid {
+      display: grid;
+      gap: 0.85rem;
+    }
+    .option-grid.two-col {
+      grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: 480px) {
+      .option-grid.two-col { grid-template-columns: 1fr; }
+    }
+
+    .option-card {
+      position: relative;
+    }
+    .option-card input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      margin: 0;
+    }
+    .option-card label {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+      padding: 1rem 1.25rem;
+      background: var(--white);
+      border: 2px solid #e5e0d8;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+    .option-card input[type="radio"]:checked + label {
+      border-color: var(--gold);
+      background: rgba(201,160,74,0.07);
+      box-shadow: 0 0 0 1px var(--gold);
+    }
+    .option-card label:hover {
+      border-color: var(--gold-lt);
+      background: rgba(201,160,74,0.04);
+    }
+    .option-num {
+      font-family: var(--font-h);
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--gold);
+      min-width: 1.5rem;
+      line-height: 1.3;
+    }
+    .option-text strong {
+      display: block;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.15rem;
+    }
+    .option-text span {
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+
+    /* Perspective cards (no number) */
+    .perspective-card label {
+      justify-content: center;
+      text-align: center;
+      font-family: var(--font-h);
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: var(--primary);
+      padding: 1.25rem 2rem;
+    }
+
+    /* ── Checkbox options ── */
+    .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      margin-bottom: 1.25rem;
+    }
+    .checkbox-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.85rem 1.1rem;
+      background: var(--white);
+      border: 2px solid #e5e0d8;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .checkbox-item:has(input:checked) {
+      border-color: var(--gold);
+      background: rgba(201,160,74,0.07);
+    }
+    .checkbox-item input[type="checkbox"] {
+      margin-top: 0.2rem;
+      accent-color: var(--gold);
+      width: 1.1rem;
+      height: 1.1rem;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+    .checkbox-item label {
+      cursor: pointer;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    /* Other text field */
+    .other-wrap {
+      margin-top: 0.5rem;
+    }
+    .other-field-label {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-weight: 600;
+      display: block;
+      margin-bottom: 0.35rem;
+    }
+
+    /* ── Text inputs / textareas ── */
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      width: 100%;
+      font-family: var(--font-b);
+      font-size: 0.975rem;
+      color: var(--text);
+      background: var(--white);
+      border: 2px solid #e5e0d8;
+      border-radius: var(--radius);
+      padding: 0.75rem 1rem;
+      line-height: 1.5;
+      transition: border-color 0.15s;
+      outline: none;
+      resize: vertical;
+    }
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    textarea:focus {
+      border-color: var(--gold);
+    }
+    textarea { min-height: 110px; }
+
+    .field-group {
+      margin-bottom: 1.75rem;
+    }
+    .field-label {
+      display: block;
+      font-family: var(--font-h);
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    /* ── Inline field grid ── */
+    .two-fields {
+      display: grid;
+      gap: 1.25rem;
+    }
+    @media (min-width: 500px) {
+      .two-fields { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ── Optional badge ── */
+    .optional {
+      font-family: var(--font-b);
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--muted);
+      margin-left: 0.4rem;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    /* ── Navigation ── */
+    .nav-row {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      font-family: var(--font-h);
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.85rem 2rem;
+      border-radius: var(--radius);
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s, transform 0.1s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--dark);
+    }
+    .btn-primary:hover { background: var(--gold-lt); }
+    .btn-primary:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 2px solid #ddd;
+    }
+    .btn-ghost:hover {
+      border-color: var(--muted);
+      color: var(--text);
+    }
+
+    /* ── Error message ── */
+    .error-msg {
+      display: none;
+      color: #c0392b;
+      font-size: 0.88rem;
+      margin-top: 0.5rem;
+      font-weight: 600;
+    }
+    .error-msg.show { display: block; }
+
+    /* ── Thank you screen ── */
+    .thankyou-wrap {
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+    .thankyou-icon {
+      font-size: 3.5rem;
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+    .thankyou-wrap h1 { margin-bottom: 1rem; }
+    .thankyou-wrap p {
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto 1.5rem;
+    }
+
+    /* ── Divider ── */
+    .section-divider {
+      border: none;
+      border-top: 1px solid #e5e0d8;
+      margin: 2rem 0;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.6);
+      padding: 1rem 1.5rem;
+      text-align: center;
+      font-size: 0.82rem;
+    }
+    footer a { color: var(--gold-lt); }
+
+    /* ── Submission spinner ── */
+    .spinner {
+      display: none;
+      width: 1.25rem;
+      height: 1.25rem;
+      border: 3px solid rgba(44,62,80,0.2);
+      border-top-color: var(--dark);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-left: 0.5rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 500px) {
+      .hype-img-compact { flex-direction: column; }
+      .hype-img-compact img { max-height: 100px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <a href="/"><img src="assets/logo.png" alt="StrefaTECH"></a>
+    <a href="/" class="wordmark">StrefaTECH</a>
+  </header>
+
+  <!-- Progress bar -->
+  <div class="progress-wrap" id="progressWrap">
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill" style="width: 20%"></div>
+    </div>
+    <span class="progress-label" id="progressLabel">Step 1 of 5</span>
+  </div>
+
+  <!-- Context bar: perspective + selected position (screens 2–5) -->
+  <div class="context-bar" id="contextBar">
+    <span class="context-pill" id="ctx-perspective">Work life</span>
+    <span class="context-divider" id="ctx-divider" style="display:none">·</span>
+    <span class="context-pill position-pill" id="ctx-position" style="display:none"></span>
+  </div>
+
+  <!-- Survey content -->
+  <main class="survey-wrap">
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 1: Work vs. Personal
+    ═══════════════════════════════════════════════ -->
+    <div class="screen active" id="screen-1">
+      <span class="screen-eyebrow">StrefaTECH Issue #150 — Reader Survey</span>
+      <h1>Let's find out where you are on the AI journey.</h1>
+      <p class="screen-intro">First, help us understand the context. Are you answering from the perspective of your work life or your personal life? If both apply, we'd love for you to take the survey twice!</p>
+
+      <div class="option-grid two-col">
+        <div class="option-card perspective-card">
+          <input type="radio" name="perspective" id="p-work" value="Work life">
+          <label for="p-work"><span>Work life</span></label>
+        </div>
+        <div class="option-card perspective-card">
+          <input type="radio" name="perspective" id="p-personal" value="Personal life">
+          <label for="p-personal"><span>Personal life</span></label>
+        </div>
+      </div>
+
+      <div class="error-msg" id="err-1">Please select one before continuing.</div>
+
+      <!-- Hype cycle image as visual context on screen 1 -->
+      <div class="hype-img-wrap" style="margin-top:2rem; margin-bottom:0;">
+        <img src="assets/hype-cycle.png" alt="The AI Hype Cycle — we'll ask where you land on this curve">
+      </div>
+
+      <div class="nav-row">
+        <button class="btn btn-primary" onclick="goNext(1)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 2: Hype Cycle diagram + position
+    ═══════════════════════════════════════════════ -->
+    <div class="screen" id="screen-2">
+      <span class="screen-eyebrow">Your AI Journey</span>
+      <h1>Where are you right now?</h1>
+      <p class="screen-intro">Look at the curve below and pick the spot that best describes where you are with AI today.</p>
+
+      <div class="hype-img-wrap">
+        <img src="assets/hype-cycle.png" alt="AI Hype Cycle diagram — Technology Trigger, Peak of Inflated Expectations, Trough of Disillusionment, Slope of Enlightenment, Plateau of Productivity, Innovation Graveyard">
+      </div>
+
+      <div class="option-grid" id="position-grid">
+        <div class="option-card">
+          <input type="radio" name="position" id="pos-0" value="0" data-name="Technology Trigger">
+          <label for="pos-0">
+            <span class="option-num">0.</span>
+            <span class="option-text"><strong>Technology Trigger</strong><span>Just starting to notice AI — curious but not yet experimenting much</span></span>
+          </label>
+        </div>
+        <div class="option-card">
+          <input type="radio" name="position" id="pos-1" value="1" data-name="Peak of Inflated Expectations">
+          <label for="pos-1">
+            <span class="option-num">1.</span>
+            <span class="option-text"><strong>Peak of Inflated Expectations</strong><span>AI feels like it can do almost anything — enthusiasm is high</span></span>
+          </label>
+        </div>
+        <div class="option-card">
+          <input type="radio" name="position" id="pos-2" value="2" data-name="Trough of Disillusionment">
+          <label for="pos-2">
+            <span class="option-num">2.</span>
+            <span class="option-text"><strong>Trough of Disillusionment</strong><span>The reality hasn't matched the hype — frustrated or skeptical</span></span>
+          </label>
+        </div>
+        <div class="option-card">
+          <input type="radio" name="position" id="pos-3" value="3" data-name="Slope of Enlightenment">
+          <label for="pos-3">
+            <span class="option-num">3.</span>
+            <span class="option-text"><strong>Slope of Enlightenment</strong><span>Starting to figure out where AI actually works for me</span></span>
+          </label>
+        </div>
+        <div class="option-card">
+          <input type="radio" name="position" id="pos-4" value="4" data-name="Plateau of Productivity">
+          <label for="pos-4">
+            <span class="option-num">4.</span>
+            <span class="option-text"><strong>Plateau of Productivity</strong><span>AI is a regular part of my workflow — I know what it's good for</span></span>
+          </label>
+        </div>
+        <div class="option-card">
+          <input type="radio" name="position" id="pos-99" value="99" data-name="Innovation Graveyard">
+          <label for="pos-99">
+            <span class="option-num">99.</span>
+            <span class="option-text"><strong>Innovation Graveyard</strong><span>I tried it, gave up, and moved on — not for me (at least not yet)</span></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="error-msg" id="err-2">Please select your position before continuing.</div>
+
+      <div class="nav-row">
+        <button class="btn btn-ghost" onclick="goBack(2)">← Back</button>
+        <button class="btn btn-primary" onclick="goNext(2)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 3: Conditional follow-up
+    ═══════════════════════════════════════════════ -->
+    <div class="screen" id="screen-3">
+      <span class="screen-eyebrow">A Little More Detail</span>
+      <h1 id="cond-heading">Follow-up question</h1>
+      <p class="screen-intro">Select all that apply.</p>
+
+      <!-- Compact hype cycle image + selected position highlight -->
+      <div class="hype-img-compact">
+        <img src="assets/hype-cycle.png" alt="AI Hype Cycle">
+        <div class="hype-compact-right">
+          <span class="hype-compact-label">Your position</span>
+          <span class="selected-position-badge" id="s3-badge">
+            <span class="badge-num" id="s3-num"></span>
+            <span id="s3-name"></span>
+          </span>
+        </div>
+      </div>
+
+      <div class="checkbox-group" id="cond-options"></div>
+
+      <div class="other-wrap">
+        <span class="other-field-label">Other:</span>
+        <input type="text" id="other-text" placeholder="Anything else on your mind…">
+      </div>
+
+      <div class="nav-row">
+        <button class="btn btn-ghost" onclick="goBack(3)">← Back</button>
+        <button class="btn btn-primary" onclick="goNext(3)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 4: Closing open-ended questions
+    ═══════════════════════════════════════════════ -->
+    <div class="screen" id="screen-4">
+      <span class="screen-eyebrow">Looking Ahead</span>
+      <h1>Two more questions</h1>
+      <p class="screen-intro">No right answers here — just your honest take.</p>
+
+      <!-- Compact hype cycle image + selected position highlight -->
+      <div class="hype-img-compact">
+        <img src="assets/hype-cycle.png" alt="AI Hype Cycle">
+        <div class="hype-compact-right">
+          <span class="hype-compact-label">Your position</span>
+          <span class="selected-position-badge">
+            <span class="badge-num" id="s4-num"></span>
+            <span id="s4-name"></span>
+          </span>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="six-months">Where do you think you'll be in 6 months?</label>
+        <textarea id="six-months" placeholder="Same spot? Moving forward? Starting over?"></textarea>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="strefatech-feedback">What would make StrefaTECH more useful to you right now?</label>
+        <textarea id="strefatech-feedback" placeholder="More practical how-tos? Different topics? Shorter issues?"></textarea>
+      </div>
+
+      <div class="nav-row">
+        <button class="btn btn-ghost" onclick="goBack(4)">← Back</button>
+        <button class="btn btn-primary" onclick="goNext(4)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 5: Optional contact + Submit
+    ═══════════════════════════════════════════════ -->
+    <div class="screen" id="screen-5">
+      <span class="screen-eyebrow">Almost Done</span>
+      <h1>Want to share who you are?</h1>
+      <p class="screen-intro">Totally optional — but if you'd like a follow-up or just want Deb to know who's behind the answers, feel free.</p>
+
+      <!-- Compact hype cycle image + selected position highlight -->
+      <div class="hype-img-compact">
+        <img src="assets/hype-cycle.png" alt="AI Hype Cycle">
+        <div class="hype-compact-right">
+          <span class="hype-compact-label">Your position</span>
+          <span class="selected-position-badge">
+            <span class="badge-num" id="s5-num"></span>
+            <span id="s5-name"></span>
+          </span>
+        </div>
+      </div>
+
+      <div class="two-fields">
+        <div class="field-group">
+          <label class="field-label" for="resp-name">Name <span class="optional">(optional)</span></label>
+          <input type="text" id="resp-name" placeholder="Your name">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="resp-email">Email <span class="optional">(optional)</span></label>
+          <input type="email" id="resp-email" placeholder="you@example.com">
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
+      <p style="font-size:0.88rem; color:var(--muted); margin-bottom:1.5rem;">Your responses go directly to Deb. She reads every one. No spam, no sales — just genuine curiosity about where her readers are on this journey.</p>
+
+      <div class="error-msg" id="err-submit">Something went wrong. Please try again in a moment.</div>
+
+      <div class="nav-row">
+        <button class="btn btn-ghost" onclick="goBack(5)">← Back</button>
+        <button class="btn btn-primary" id="submit-btn" onclick="submitSurvey()">
+          Submit my response
+          <span class="spinner" id="submit-spinner"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         SCREEN 6: Thank you
+    ═══════════════════════════════════════════════ -->
+    <div class="screen" id="screen-6">
+      <div class="thankyou-wrap">
+        <span class="thankyou-icon">✅</span>
+        <h1>Thank you!</h1>
+        <p>Deb appreciates you taking the time. Your response helps shape future issues of StrefaTECH.</p>
+        <p>If you selected "both apply" — don't forget to <a href="/survey" onclick="resetSurvey(); return false;">take the survey again</a> from your other perspective.</p>
+        <a href="/" class="btn btn-primary" style="margin-top:1rem;">Back to StrefaTECH →</a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <span>© 2025 StrefaTECH · <a href="/">strefatech.org</a></span>
+  </footer>
+
+  <script>
+    // ─── Conditional questions map ───────────────────────────
+    const CONDITIONAL = {
+      0: {
+        heading: "What's holding you back from exploring AI tools?",
+        options: [
+          "I'm not sure where to start",
+          "I don't have time to figure it out",
+          "I'm worried about privacy or security",
+          "I'm skeptical it would actually help me",
+          "My organization hasn't given the green light",
+        ],
+      },
+      1: {
+        heading: "What's driving your enthusiasm?",
+        options: [
+          "I feel like AI can do almost anything",
+          "I'm saving significant time already",
+          "The possibilities feel genuinely exciting",
+          "I've seen impressive demos or results",
+        ],
+      },
+      2: {
+        heading: "What disappointed you or felt like a barrier?",
+        options: [
+          "It didn't work as well as I expected",
+          "It makes things up and I can't trust it",
+          "It's too much effort to get good results",
+          "I can't figure out how to fit it into my workflow",
+          "My organization has restricted its use",
+        ],
+      },
+      3: {
+        heading: "What helped you turn the corner?",
+        options: [
+          "I found specific use cases where it actually works",
+          "I got better at writing prompts",
+          "I stopped expecting it to be perfect",
+          "Someone showed me how they use it",
+        ],
+      },
+      4: {
+        heading: "What does AI actually do for you now?",
+        options: [
+          "It's part of my daily workflow",
+          "It handles specific tasks I used to dread",
+          "It makes me faster without replacing my thinking",
+          "I've figured out what it's good at and what it's not",
+        ],
+      },
+      99: {
+        heading: "What sent you there?",
+        options: [
+          "Too many bad results I couldn't fix",
+          "It felt like more work than it saved",
+          "Privacy or ethical concerns I couldn't get past",
+          "I just don't think it's ready yet",
+          "I gave it a try, it was weird!",
+        ],
+      },
+    };
+
+    // ─── State ───────────────────────────────────────────────
+    let currentScreen = 1;
+    const TOTAL_SCREENS = 5;
+
+    // ─── Navigation ─────────────────────────────────────────
+    function showScreen(n) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('screen-' + n).classList.add('active');
+      currentScreen = n;
+      updateProgress(n);
+      updateContextBar(n);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function updateProgress(n) {
+      const wrap = document.getElementById('progressWrap');
+      const fill = document.getElementById('progressFill');
+      const label = document.getElementById('progressLabel');
+      if (n > TOTAL_SCREENS) {
+        wrap.style.display = 'none';
+        return;
+      }
+      wrap.style.display = 'flex';
+      fill.style.width = ((n / TOTAL_SCREENS) * 100) + '%';
+      label.textContent = 'Step ' + n + ' of ' + TOTAL_SCREENS;
+    }
+
+    function updateContextBar(n) {
+      const bar = document.getElementById('contextBar');
+      const ctxPerspective = document.getElementById('ctx-perspective');
+      const ctxPosition = document.getElementById('ctx-position');
+      const ctxDivider = document.getElementById('ctx-divider');
+
+      if (n < 2 || n > TOTAL_SCREENS) {
+        bar.classList.remove('visible');
+        return;
+      }
+
+      bar.classList.add('visible');
+
+      // Perspective pill
+      const perspective = document.querySelector('input[name="perspective"]:checked')?.value || '';
+      ctxPerspective.textContent = perspective;
+
+      // Position pill (screens 3+)
+      const posEl = document.querySelector('input[name="position"]:checked');
+      if (n >= 3 && posEl) {
+        const posNum = posEl.value;
+        const posName = posEl.getAttribute('data-name');
+        ctxPosition.textContent = posNum + '. ' + posName;
+        ctxPosition.style.display = 'inline-flex';
+        ctxDivider.style.display = 'inline';
+      } else {
+        ctxPosition.style.display = 'none';
+        ctxDivider.style.display = 'none';
+      }
+    }
+
+    // ─── Update compact position badges on screens 3–5 ──────
+    function updatePositionBadges(posValue, posName) {
+      const numDisplay = posValue === 99 ? '99.' : posValue + '.';
+      [3, 4, 5].forEach(n => {
+        const numEl = document.getElementById('s' + n + '-num');
+        const nameEl = document.getElementById('s' + n + '-name');
+        if (numEl) numEl.textContent = numDisplay;
+        if (nameEl) nameEl.textContent = posName;
+      });
+    }
+
+    function goNext(from) {
+      if (from === 1) {
+        const sel = document.querySelector('input[name="perspective"]:checked');
+        if (!sel) { showError('err-1'); return; }
+        hideError('err-1');
+        showScreen(2);
+      } else if (from === 2) {
+        const sel = document.querySelector('input[name="position"]:checked');
+        if (!sel) { showError('err-2'); return; }
+        hideError('err-2');
+        const posVal = parseInt(sel.value);
+        const posName = sel.getAttribute('data-name');
+        buildConditional(posVal);
+        updatePositionBadges(posVal, posName);
+        showScreen(3);
+      } else if (from === 3) {
+        showScreen(4);
+      } else if (from === 4) {
+        showScreen(5);
+      }
+    }
+
+    function goBack(from) {
+      showScreen(from - 1);
+    }
+
+    function showError(id) { document.getElementById(id).classList.add('show'); }
+    function hideError(id) { document.getElementById(id).classList.remove('show'); }
+
+    // ─── Build conditional screen ────────────────────────────
+    function buildConditional(posValue) {
+      const data = CONDITIONAL[posValue];
+      if (!data) return;
+
+      document.getElementById('cond-heading').textContent = data.heading;
+      const container = document.getElementById('cond-options');
+      container.innerHTML = '';
+
+      data.options.forEach((opt, i) => {
+        const id = 'cond-' + i;
+        const div = document.createElement('div');
+        div.className = 'checkbox-item';
+        div.innerHTML = `
+          <input type="checkbox" id="${id}" value="${opt.replace(/"/g, '&quot;')}">
+          <label for="${id}">${opt}</label>
+        `;
+        container.appendChild(div);
+      });
+
+      document.getElementById('other-text').value = '';
+    }
+
+    // ─── Submit ──────────────────────────────────────────────
+    async function submitSurvey() {
+      const btn = document.getElementById('submit-btn');
+      const spinner = document.getElementById('submit-spinner');
+
+      btn.disabled = true;
+      spinner.style.display = 'inline-block';
+      hideError('err-submit');
+
+      const perspective  = document.querySelector('input[name="perspective"]:checked')?.value || '';
+      const posEl        = document.querySelector('input[name="position"]:checked');
+      const position     = posEl ? parseInt(posEl.value) : null;
+      const positionName = posEl ? posEl.getAttribute('data-name') : '';
+
+      const checkedBoxes = Array.from(
+        document.querySelectorAll('#cond-options input[type="checkbox"]:checked')
+      ).map(cb => cb.value);
+
+      const otherText = document.getElementById('other-text').value.trim();
+      const sixMonths = document.getElementById('six-months').value.trim();
+      const feedback  = document.getElementById('strefatech-feedback').value.trim();
+      const name      = document.getElementById('resp-name').value.trim();
+      const email     = document.getElementById('resp-email').value.trim();
+
+      try {
+        const resp = await fetch('/api/survey', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            perspective, position, positionName,
+            conditionalSelections: checkedBoxes,
+            otherText, sixMonths, feedback, name, email,
+          }),
+        });
+
+        if (!resp.ok) throw new Error('Server error');
+        showScreen(6);
+      } catch (err) {
+        showError('err-submit');
+        btn.disabled = false;
+        spinner.style.display = 'none';
+      }
+    }
+
+    // ─── Reset ───────────────────────────────────────────────
+    function resetSurvey() {
+      document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+      document.querySelectorAll('input[type="text"], input[type="email"], textarea').forEach(f => f.value = '');
+      document.getElementById('cond-options').innerHTML = '';
+      document.getElementById('submit-btn').disabled = false;
+      document.getElementById('submit-spinner').style.display = 'none';
+      showScreen(1);
+    }
+  </script>
+
+</body>
+</html>

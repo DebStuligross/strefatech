@@ -1,3 +1,10 @@
 {
-  "cleanUrls": true
+  "cleanUrls": true,
+  "functions": {
+    "api/survey.js": {
+      "memory": 256,
+      "maxDuration": 10
+    }
+  }
 }
+

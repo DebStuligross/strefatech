@@ -192,6 +192,20 @@ section {
   margin: 0 0 2.5rem;
 }
 
+.hero-survey {
+  display: inline-block;
+  margin-top: 1.25rem;
+  font-size: 0.9rem;
+  color: var(--color-highlight);
+  border-left: 3px solid var(--color-highlight);
+  padding-left: 0.75rem;
+  text-decoration: none;
+}
+.hero-survey:hover {
+  color: var(--color-highlight-light);
+  text-decoration: underline;
+}
+
 .hero-actions {
   display: flex;
   flex-direction: column;

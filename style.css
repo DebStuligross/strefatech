@@ -236,8 +236,6 @@ section {
 
 .hero-cover {
   width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
   display: block;
 }
 
@@ -385,8 +383,6 @@ section {
 .card-cover {
   width: calc(100% + 3rem);
   margin: -1.75rem -1.5rem 1.25rem;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
   border-radius: var(--border-radius) var(--border-radius) 0 0;
   display: block;
 }

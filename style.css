@@ -153,6 +153,51 @@ section {
 }
 
 /* ============================================================
+   Section: Survey Callout
+   ============================================================ */
+
+#survey-callout {
+  background: var(--color-highlight);
+  padding: 2.5rem 1.5rem;
+}
+
+.survey-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.survey-text h2 {
+  color: var(--color-dark);
+  margin-bottom: 0.5rem;
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+}
+
+.survey-text p {
+  color: rgba(44, 62, 80, 0.85);
+  font-size: 1rem;
+  max-width: 600px;
+  margin: 0;
+}
+
+.btn-survey {
+  background: var(--color-dark);
+  color: var(--color-white);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.btn-survey:hover {
+  background: #1a2a36;
+  color: var(--color-white);
+}
+
+@media (max-width: 600px) {
+  .survey-inner { flex-direction: column; align-items: flex-start; }
+}
+
+/* ============================================================
    Section: Hero
    ============================================================ */
 

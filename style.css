@@ -163,10 +163,9 @@ section {
 
 .survey-inner {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
 }
 
 .survey-text h2 {
@@ -178,8 +177,11 @@ section {
 .survey-text p {
   color: rgba(44, 62, 80, 0.85);
   font-size: 1rem;
-  max-width: 600px;
-  margin: 0;
+  max-width: 720px;
+  margin: 0 0 0.75rem 0;
+}
+.survey-text p:last-child {
+  margin-bottom: 0;
 }
 
 .btn-survey {
@@ -194,7 +196,7 @@ section {
 }
 
 @media (max-width: 600px) {
-  .survey-inner { flex-direction: column; align-items: flex-start; }
+  /* survey-inner is always column */
 }
 
 /* ============================================================

@@ -157,46 +157,79 @@ section {
    ============================================================ */
 
 #survey-callout {
-  background: var(--color-highlight);
-  padding: 2.5rem 1.5rem;
+  background: linear-gradient(to bottom, #D4AF62, #f0e6c0);
+  padding: 6rem 1.5rem;
 }
 
-.survey-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1.5rem;
+.survey-grid {
+  display: grid;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .survey-grid {
+    grid-template-columns: 3fr 2fr;
+  }
 }
 
 .survey-text h2 {
   color: var(--color-dark);
-  margin-bottom: 0.5rem;
-  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  margin-bottom: 1.25rem;
+  text-align: left;
 }
 
 .survey-text p {
-  color: rgba(44, 62, 80, 0.85);
+  color: rgba(44, 62, 80, 0.9);
   font-size: 1rem;
-  max-width: 720px;
-  margin: 0 0 0.75rem 0;
+  line-height: 1.8;
+  margin: 0 0 0.9rem 0;
+  text-align: left;
 }
-.survey-text p:last-child {
-  margin-bottom: 0;
+.survey-text p:last-of-type {
+  margin-bottom: 1.5rem;
+}
+
+#survey-callout a:not(.btn) {
+  color: #1a1a1a;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+#survey-callout a:not(.btn):hover {
+  color: #000000;
 }
 
 .btn-survey {
-  background: var(--color-dark);
+  background: #1e2d3d;
   color: var(--color-white);
-  white-space: nowrap;
-  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  transition: background 0.2s, transform 0.15s, box-shadow 0.15s;
 }
 .btn-survey:hover {
-  background: #1a2a36;
+  background: #0f1c28;
   color: var(--color-white);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.22);
 }
 
-@media (max-width: 600px) {
-  /* survey-inner is always column */
+.survey-image-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  box-shadow: 0 8px 32px rgba(180, 140, 60, 0.15);
+}
+
+.survey-cover {
+  width: 100%;
+  border-radius: 0.5rem;
+  display: block;
 }
 
 /* ============================================================
@@ -283,6 +316,9 @@ section {
 
 .hero-cover {
   width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  object-position: center top;
   display: block;
 }
 
